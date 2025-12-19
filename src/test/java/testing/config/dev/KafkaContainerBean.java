@@ -1,9 +1,9 @@
-package testing.config;
+package testing.config.dev;
 
 import org.springframework.boot.test.context.TestConfiguration;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class KafkaConfig {
+public class KafkaContainerBean {
 
     /*
     @Bean

@@ -1,0 +1,2 @@
+App can be executed with testContainer beans instead of real ones.
+Just execute main method from `AppRunnerWithTestContainers`.

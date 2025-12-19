@@ -8,13 +8,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
-import testing.config.PostgreSQLConfig;
+import testing.config.dev.PostgresContainerBean;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(PostgreSQLConfig.class)
+@Import(PostgresContainerBean.class)
 @ActiveProfiles("test")
 class StudentRepositoryTest {
 

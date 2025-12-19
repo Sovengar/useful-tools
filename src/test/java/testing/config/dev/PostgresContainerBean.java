@@ -1,4 +1,4 @@
-package testing.config;
+package testing.config.dev;
 
 import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class PostgreSQLConfig {
+public class PostgresContainerBean {
 
     @RestartScope
     @Bean

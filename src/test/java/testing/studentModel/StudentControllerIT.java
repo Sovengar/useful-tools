@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.StringUtils;
-import testing.AbstractIntegrationTest;
+import testing.config.initializers.AbstractITInitializer;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class StudentControllerIT extends AbstractIntegrationTest {
+class StudentControllerIT extends AbstractITInitializer {
 
     @Autowired
     private MockMvc mockMvc;
