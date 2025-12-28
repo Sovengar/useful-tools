@@ -26,7 +26,7 @@ public class InfraInitializer3 implements BeforeAllCallback {
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
-                .ignoreMigrationPatterns("*:repeatable") // Ignore R files
+                .repeatableSqlMigrationPrefix("R_DISABLED")
                 .load();
         flyway.migrate();
     }

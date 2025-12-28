@@ -290,17 +290,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<argLine>--enable-preview</argLine>
-					<includes>
-						<include>**/*Test.java</include>
-						<include>**/*Tests.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*IT.java</exclude>
-					</excludes>
-					<!-- Workaround Docker CLI 29+ for local development if ITs are run via Surefire -->
-					<systemPropertyVariables>
-						<api.version>1.44</api.version>
-					</systemPropertyVariables>
+					<excludedGroups>integration</excludedGroups>
 				</configuration>
 			</plugin>
 
@@ -320,9 +310,7 @@
 				</executions>
 				<configuration>
 					<argLine>--enable-preview</argLine>
-					<includes>
-						<include>**/*IT.java</include>
-					</includes>
+					<groups>integration</groups>
 					<!-- BEGIN Workaround Docker CLI 29+ -->
 					<!-- Docker 29+ is incompatible with testcontainer 1.x, "client version 1.32 is too old. Minimum supported API version is 1.44, please upgrade your client to a newer version"
                                see https://github.com/testcontainers/testcontainers-java/issues/11212#issuecomment-3518584924 -->

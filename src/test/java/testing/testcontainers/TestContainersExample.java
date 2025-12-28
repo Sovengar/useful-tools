@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
+import org.junit.jupiter.api.Tag;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -42,11 +43,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * - org.springframework.boot:spring-boot-testcontainers
  * ═══════════════════════════════════════════════════════════════════════════════
  */
+@Tag("integration")
 class TestContainersExample {
     @ActiveProfiles("test")
     @SpringBootTest
     @UseInfraInitializer3
     @Nested
+    @Tag("integration")
     class ExtendsWithExample {
         @Test
         void connectionEstablished() {
@@ -60,6 +63,7 @@ class TestContainersExample {
     @SpringBootTest
     @UseInfraInitializer1
     @Nested
+    @Tag("integration")
     class ImportExample {
         @Test
         void connectionEstablished() {
@@ -72,6 +76,7 @@ class TestContainersExample {
     @ActiveProfiles("test")
     @SpringBootTest
     @Nested
+    @Tag("integration")
     class ExtendsExample extends InfraInitializer2 {
         @Test
         void connectionEstablished() {
@@ -84,6 +89,7 @@ class TestContainersExample {
     @ActiveProfiles("test")
     @SpringBootTest
     @Nested
+    @Tag("integration")
     class InClassExample {
         public static GenericContainer postgres = new PostgreSQLContainer();
 
@@ -112,6 +118,7 @@ class TestContainersExample {
     @SpringBootTest
     @Testcontainers
     @Nested
+    @Tag("integration")
     class InClassExample2 {
         @Container
         protected static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
@@ -135,6 +142,7 @@ class TestContainersExample {
     @SpringBootTest
     @Testcontainers
     @Nested
+    @Tag("integration")
     class InClassExample3 {
         @Container
         static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
@@ -157,6 +165,7 @@ class TestContainersExample {
     @ActiveProfiles("test")
     @SpringBootTest
     @Nested
+    @Tag("integration")
     class jUnit5Example extends Junit5ITInitializer {
 
         @Test
@@ -171,6 +180,7 @@ class TestContainersExample {
     @DataJpaTest
     @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
     @Import(PostgresContainerBean.class)
+    @Tag("integration")
     class WeirdExample {
         @Autowired
         private PostgreSQLContainer<?> postgresContainer;
@@ -179,7 +189,7 @@ class TestContainersExample {
         void connectionEstablished() {
             assertThat(postgresContainer.isCreated()).isTrue();
             assertThat(postgresContainer.isRunning()).isTrue();
-            System.out.println("JDBC URL -> " + postgresContainer.getJdbcUrl()) ;
+            System.out.println("JDBC URL -> " + postgresContainer.getJdbcUrl());
         }
     }
 }
