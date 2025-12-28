@@ -10,10 +10,10 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
-import testing.config.runners.AcceptanceRunner;
+import testing.config.runners.SystemRunner;
 
 @SpringBootTest
-@AcceptanceRunner
+@SystemRunner
 //This initializer will be shared for all test classes.
 //Even though this class is extended multiple times and therefore .start() is called multiple times, it will only be started one time if you have .withReuse and setted in .testcontainers.properties
 //You could even have the beforeAll in the concrete test class, and it would still be started only once.

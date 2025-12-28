@@ -1,0 +1,55 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# OPENREWRITE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+# OpenRewrite is an automated refactoring framework.
+#
+# Plugin: org.openrewrite.maven:rewrite-maven-plugin (pom.xml)
+#
+# Commands:
+#   mvn rewrite:dryRun  - Preview changes without applying
+#   mvn rewrite:run     - Apply refactoring recipes
+#   mvn rewrite:discover - List available recipes
+#
+# Available recipes: https://docs.openrewrite.org/recipes
+# ═══════════════════════════════════════════════════════════════════════════════
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.CustomRecipes
+displayName: Custom Project Recipes
+description: Custom recipes for this project.
+
+recipeList:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Code Formatting
+  # ─────────────────────────────────────────────────────────────────────────────
+  - org.openrewrite.java.format.AutoFormat
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Java Best Practices
+  # ─────────────────────────────────────────────────────────────────────────────
+  - org.openrewrite.java.ShortenFullyQualifiedTypeReferences
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Spring Boot Migrations (uncomment to use)
+  # ─────────────────────────────────────────────────────────────────────────────
+  # - org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_3
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Static Analysis / Code Quality
+  # ─────────────────────────────────────────────────────────────────────────────
+  # - org.openrewrite.staticanalysis.CommonStaticAnalysis
+
+---
+# ═══════════════════════════════════════════════════════════════════════════════
+# CUSTOM RECIPE EXAMPLE
+# ═══════════════════════════════════════════════════════════════════════════════
+# You can define custom recipes here. Example:
+#
+# type: specs.openrewrite.org/v1beta/recipe
+# name: com.example.RenameDeprecatedMethods
+# displayName: Rename deprecated methods
+# recipeList:
+#   - org.openrewrite.java.ChangeMethodName:
+#       methodPattern: com.example.OldClass oldMethod()
+#       newMethodName: newMethod

@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @BasicTestTags
-@Tag("integration")
+@Tag("system")
 
 // Web ///
 @AutoConfigureMockMvc
@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 @Rollback
 // ///////
 
-public @interface AcceptanceRunner {
+public @interface SystemRunner {
     //Add @SpringBoot or @SpringModulith in your target class with the configuration you need.
     //Add @InfraInitializer in your target class to enable infra dependencies.
 }
