@@ -1,6 +1,7 @@
 package testing.todoClient;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 class TodoClientTest {
 
     // System Under Test (sut)
@@ -30,20 +32,21 @@ class TodoClientTest {
 
     @Test
     void shouldThrowNotFoundExceptionGivenInvalidId() {
-        TodoNotFoundException todoNotFoundException = assertThrows(TodoNotFoundException.class, () -> client.findById(999));
+        TodoNotFoundException todoNotFoundException = assertThrows(TodoNotFoundException.class,
+                () -> client.findById(999));
         assertEquals("todo.Todo not found", todoNotFoundException.getMessage());
     }
 
     @Test
     void shouldCreateNewTodo() throws IOException, InterruptedException {
-        Todo todo = new Todo(201,1,"Learn Java",false);
+        Todo todo = new Todo(201, 1, "Learn Java", false);
         HttpResponse<String> response = client.create(todo);
         assertEquals(201, response.statusCode());
     }
 
     @Test
     void shouldUpdateExistingTodo() throws IOException, InterruptedException, TodoNotFoundException {
-        Todo todo = new Todo(1,1,"NEW TITLE", true);
+        Todo todo = new Todo(1, 1, "NEW TITLE", true);
         HttpResponse<String> response = client.update(todo);
         assertEquals(200, response.statusCode());
     }

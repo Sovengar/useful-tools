@@ -34,7 +34,8 @@ public abstract class InfraInitializer2 {
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", () -> postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:")); //P6SPY WORKAROUND
+        registry.add("spring.datasource.url", () -> postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:")); // P6SPY
+                                                                                                            // WORKAROUND
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
     }
@@ -49,7 +50,7 @@ public abstract class InfraInitializer2 {
                 postgres.getJdbcUrl(),
                 postgres.getUsername(),
                 postgres.getPassword())
-                .locations("db/migration")
+                .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
                 .load();
         flyway.migrate();

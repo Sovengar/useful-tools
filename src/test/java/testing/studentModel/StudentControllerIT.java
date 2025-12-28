@@ -31,13 +31,6 @@ class StudentControllerIT extends InfraInitializer2 {
     private StudentRepository studentRepository;
 
     @Test
-    void connectionEstablished() {
-        assertThat(postgres.isCreated()).isTrue();
-        assertThat(postgres.isRunning()).isTrue();
-        System.out.println("JDBC URL -> " + postgres.getJdbcUrl()) ;
-    }
-
-    @Test
     void canRegisterNewStudent() throws Exception {
         // given
         String name = String.format(

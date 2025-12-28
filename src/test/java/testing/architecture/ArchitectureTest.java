@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
@@ -30,6 +31,7 @@ import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.sli
  * - No cyclic dependencies
  * ═══════════════════════════════════════════════════════════════════════════════
  */
+@ActiveProfiles("test")
 @DisplayName("Architecture Tests (ArchUnit)")
 class ArchitectureTest {
 

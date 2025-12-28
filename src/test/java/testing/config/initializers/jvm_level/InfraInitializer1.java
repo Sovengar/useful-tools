@@ -30,7 +30,7 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
                 postgres.getJdbcUrl(),
                 postgres.getUsername(),
                 postgres.getPassword())
-                .locations("db/migration")
+                .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
                 .load();
         flyway.migrate();
@@ -40,7 +40,7 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
     public void initialize(ConfigurableApplicationContext ctx) {
         TestPropertyValues.of(
                 // "spring.kafka.bootstrap-servers=" + kafka.getBootstrapServers(),
-                "spring.datasource.url=" + postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"), //P6SPY WORKAROUND
+                "spring.datasource.url=" + postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"), // P6SPY WORKAROUND
                 "spring.datasource.username=" + postgres.getUsername(),
                 "spring.datasource.password=" + postgres.getPassword()).applyTo(ctx.getEnvironment());
     }
