@@ -1,5 +1,6 @@
 package testing.config.initializers.jvm_level.example3;
 
+import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -15,7 +16,19 @@ public class InfraInitializer3 implements BeforeAllCallback {
     public void beforeAll(ExtensionContext context) {
         postgres.start();
         updateDataSourceProps(postgres);
-        // migration logic here (if needed)
+        migrateDatabase();
+    }
+
+    private static void migrateDatabase() {
+        Flyway flyway = Flyway.configure().dataSource(
+                postgres.getJdbcUrl(),
+                postgres.getUsername(),
+                postgres.getPassword())
+                .locations("db/migrations")
+                // .schemas(new String[]{"yourSchema", ""})
+                .ignoreMigrationPatterns("*:repeatable") // Ignore R files
+                .load();
+        flyway.migrate();
     }
 
     // Hijack because we can't use @DynamicPropertySources

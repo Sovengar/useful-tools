@@ -1,10 +1,17 @@
 package testing.testcontainers;
 
+import static org.junit.Assert.assertThat;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -12,12 +19,15 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import testing.config.dev.PostgresContainerBean;
 import testing.config.initializers.UseInfraInitializer1;
 import testing.config.initializers.UseInfraInitializer3;
 import testing.config.initializers.jvm_level.InfraInitializer1;
 import testing.config.initializers.jvm_level.example3.InfraInitializer3;
 import testing.config.initializers.jvm_level.InfraInitializer2;
 import testing.config.initializers.test_class_level.Junit5ITInitializer;
+import testing.studentModel.StudentRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -154,6 +164,22 @@ class TestContainersExample {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
             System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
+        }
+    }
+
+    @ActiveProfiles("test")
+    @DataJpaTest
+    @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+    @Import(PostgresContainerBean.class)
+    class WeirdExample {
+        @Autowired
+        private PostgreSQLContainer<?> postgresContainer;
+
+        @Test
+        void connectionEstablished() {
+            assertThat(postgresContainer.isCreated()).isTrue();
+            assertThat(postgresContainer.isRunning()).isTrue();
+            System.out.println("JDBC URL -> " + postgresContainer.getJdbcUrl()) ;
         }
     }
 }

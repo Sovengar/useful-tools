@@ -32,13 +32,14 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
+                .ignoreMigrationPatterns("*:repeatable") // Ignore R files
                 .load();
         flyway.migrate();
     }
 
     @Override
     public void initialize(ConfigurableApplicationContext ctx) {
-        ctx.getBeanFactory().registerSingleton("postgres", postgres); //If you want to @Autowired this container
+        ctx.getBeanFactory().registerSingleton("postgres", postgres); // If you want to @Autowired this container
         TestPropertyValues.of(
                 // "spring.kafka.bootstrap-servers=" + kafka.getBootstrapServers(),
                 "spring.datasource.url=" + postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"), // P6SPY WORKAROUND

@@ -22,9 +22,10 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class Junit5ITInitializer {
 
     @Container // jUnit5 annotation, lets jUnit5 controls lifecycle of the container
-    //@ServiceConnection // Spring annotation coming from springboot-testcontainers. Injects properties
+    // @ServiceConnection // Spring annotation coming from
+    // springboot-testcontainers. Injects properties
     // dynamically, no need to use @DynamicPropertySource or System.setProperty
-    //Not used because we are using p6spy raw.
+    // Not used because we are using p6spy raw.
     protected static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             DockerImageName.parse("postgres").withTag("16-alpine"));
 
@@ -46,8 +47,8 @@ public abstract class Junit5ITInitializer {
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
+                .ignoreMigrationPatterns("*:repeatable") // Ignore R files
                 .load();
-        flyway.repair();
         flyway.migrate();
     }
 }
