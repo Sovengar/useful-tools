@@ -10,12 +10,12 @@ public class InfraInitializer3 implements BeforeAllCallback {
     public void beforeAll(ExtensionContext context) {
         AppPostgresContainer.container.start();
         updateDataSourceProps(AppPostgresContainer.container);
-        //migration logic here (if needed)
+        // migration logic here (if needed)
     }
 
-    //Hijack because we can't use @DynamicPropertySources
+    // Hijack because we can't use @DynamicPropertySources
     private void updateDataSourceProps(AppPostgresContainer container) {
-        System.setProperty("spring.datasource.url", container.getJdbcUrl());
+        System.setProperty("spring.datasource.url", container.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:")); //P6SPY WORKAROUND
         System.setProperty("spring.datasource.username", container.getUsername());
         System.setProperty("spring.datasource.password", container.getPassword());
     }
@@ -24,15 +24,16 @@ public class InfraInitializer3 implements BeforeAllCallback {
 class AppPostgresContainer extends PostgreSQLContainer<AppPostgresContainer> {
     private static final String IMAGE_NAME = "postgres";
     private static final String IMAGE_TAG = "16-alpine";
-    private static final String DB_NAME = "postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "";
+    private static final String DB_NAME = "testdb";
+    private static final String USER = "test";
+    private static final String PASSWORD = "test";
 
     public static AppPostgresContainer container = new AppPostgresContainer()
             .withDatabaseName(DB_NAME)
             .withUsername(USER)
             .withPassword(PASSWORD)
-            .withReuse(true); // Ensure that testcontainers.reuse.enable=true is set in ~/.testcontainers.properties
+            .withReuse(true); // Ensure that testcontainers.reuse.enable=true is set in
+                              // ~/.testcontainers.properties
 
     public AppPostgresContainer() {
         super(IMAGE_NAME + ":" + IMAGE_TAG);
