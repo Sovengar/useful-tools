@@ -32,7 +32,6 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
-                .repeatableSqlMigrationPrefix("R_DISABLED")
                 .load();
         flyway.migrate();
     }

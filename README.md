@@ -10,7 +10,7 @@ Proyecto para probar herramientas utiles.
 |-------------------|-------------------------|--------------------------------------|
 | **Jacoco**        | Cobertura de código     | `pom.xml` → plugin                   |
 | **Pitest**        | Mutation testing        | `pom.xml` → plugin                   |
-| **Flyway**        | Migraciones de BD       | `src/main/resources/db/migration/`   |
+| **Flyway**        | Migraciones de BD       | `FlywayConfig.java`                 |
 | **ArchUnit**      | Tests de arquitectura   | `ArchitectureTest.java`              |
 | **P6Spy**         | Logging SQL             | `src/main/resources/spy.properties`  |
 | **QueryDSL**      | Queries type-safe       | `StudentQueryRepository.java`        |
@@ -109,13 +109,18 @@ if (balance > amount) { ... }  // ¿El test lo detecta?
 
 ### 🗄️ Flyway (Migraciones de BD)
 
-Versiona el esquema de base de datos.
+Versiona el esquema de base de datos de forma programática.
 
-**Ubicación:** `src/main/resources/db/migration/`
+**Configuración (`FlywayConfig.java`):**
+- Gestiona localizaciones dinámicamente (`db/migrations` y `db/dev` en perfil `dev`).
+- Ejecuta `migrate()` automáticamente solo en perfil `dev`.
+- Permite comportamiento flexible para H2/Tests mediante `flyway.h2-behavior`.
+
+**Ubicación:** `src/main/resources/db/migrations/`
 
 **Convención de nombres:**
 - `V1__create_tables.sql` (inicial)
-- `V2__add_column.sql` (siguiente)
+- `R__Load_data.sql` (datos repetibles)
 
 ```sql
 -- V1__create_tables.sql

@@ -48,7 +48,6 @@ public abstract class DatabaseInitializer {
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
-                .repeatableSqlMigrationPrefix("R_DISABLED")
                 .load();
         flyway.migrate();
     }

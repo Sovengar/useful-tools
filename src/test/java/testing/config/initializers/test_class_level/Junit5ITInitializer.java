@@ -47,7 +47,6 @@ public abstract class Junit5ITInitializer {
                 postgres.getPassword())
                 .locations("db/migrations")
                 // .schemas(new String[]{"yourSchema", ""})
-                .repeatableSqlMigrationPrefix("R_DISABLED")
                 .load();
         flyway.migrate();
     }
