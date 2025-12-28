@@ -35,12 +35,14 @@ Proyecto para probar herramientas utiles.
 # ═══════════════════════════════════════════════════════════════════
 # TESTS + COBERTURA JACOCO
 # Reporte: target/site/jacoco/index.html
+# Open: target/site/jacoco/index.html
 # ═══════════════════════════════════════════════════════════════════
 ./mvnw test jacoco:report
 
 # ═══════════════════════════════════════════════════════════════════
 # MUTATION TESTING (PITEST)
 # Reporte: target/pit-reports/
+# Open: target/pit-reports/index.html
 # ═══════════════════════════════════════════════════════════════════
 ./mvnw test-compile org.pitest:pitest-maven:mutationCoverage
 

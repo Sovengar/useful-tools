@@ -387,6 +387,13 @@
 						<artifactId>pitest-junit5-plugin</artifactId>
 						<version>${pitest-junit5.version}</version>
 					</dependency>
+					<!-- REQUIRED: Fixes "OutputDirectoryProvider not available" / UNKNOWN_ERROR on Java 21+
+					     Matches the JUnit Platform version (1.12.2) used by Spring Boot 3.5.0 -->
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-launcher</artifactId>
+						<version>1.12.2</version>
+					</dependency>
 				</dependencies>
 				<configuration>
 					<targetClasses>
