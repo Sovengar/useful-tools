@@ -1,11 +1,11 @@
-package testing.config.runners;
+package testing._config.runners;
 
 import org.junit.jupiter.api.Tag;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import testing.config.BasicTestTags;
+import testing._config.BasicTestTags;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package testing.config;
+package testing._config;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.springframework.test.context.ActiveProfiles;

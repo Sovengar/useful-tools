@@ -1,4 +1,4 @@
-package testing.config.runners;
+package testing._config.runners;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
