@@ -90,9 +90,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- ═══════════════════════════════════════════════════════════════════
@@ -102,6 +101,27 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
+		<!-- ═══════════════════════════════════════════════════════════════════
+		     DOCKER COMPOSE INTEGRATION
+		     Automatically manages local infrastructure during development
+		     Config: compose.yaml
+		     ═══════════════════════════════════════════════════════════════════ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-docker-compose</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- ═══════════════════════════════════════════════════════════════════
@@ -158,13 +178,10 @@
 		</dependency>
 
 		<!-- ═══════════════════════════════════════════════════════════════════
-		     TESTING - Spring Boot Test
+		     TESTCONTAINERS - Docker containers for tests
+		     Official Spring Boot integration and JUnit 5 support
+		     Usage: See TestContainersIT.java and Initializers
 		     ═══════════════════════════════════════════════════════════════════ -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-testcontainers</artifactId>
@@ -224,6 +241,18 @@
 			<groupId>com.approvaltests</groupId>
 			<artifactId>approvaltests</artifactId>
 			<version>${approvaltests.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- ═══════════════════════════════════════════════════════════════════
+		     JQWIK - Property-Based Testing
+		     Generates random test data to validate invariants
+		     Usage: @Property void test(int a, int b) { ... }
+		     ═══════════════════════════════════════════════════════════════════ -->
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik</artifactId>
+			<version>1.9.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

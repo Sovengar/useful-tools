@@ -19,6 +19,7 @@ Proyecto para probar herramientas utiles.
 | **ApprovalTests** | Snapshot testing        | `ApprovalTestsExamples.java`         |
 | **Faker**         | Datos fake para tests   | `pom.xml` → javafaker                |
 | **JSON-Unit**     | Comparación JSON        | `JsonUnitExamplesTest.java`          |
+| **jqwik**         | Property-based tests    | `JqwikExampleTest.java`              |
 | **Testcontainers**| Contenedores para tests | `TestContainersIT.java`              |
 
 ---
@@ -146,6 +147,42 @@ CREATE TABLE student (
 -- R__Load_data.sql (Repetible)
 INSERT INTO student (id, name, email) VALUES (1, 'John', 'john@test.com')
 ON CONFLICT (id) DO NOTHING;
+```
+
+---
+
+### 🐳 Docker Compose Integration (Spring Boot)
+
+Spring Boot gestiona automáticamente la infraestructura local necesaria para el desarrollo.
+
+**Funcionamiento:**
+- Al arrancar la aplicación en local, Spring Boot detecta el archivo `compose.yaml` (o `compose.yml`).
+- Levanta automáticamente los servicios definidos (ej. PostgreSQL) utilizando Docker Compose.
+- Inyecta dinámicamente las propiedades de conexión (JDBC URL, usuario, password) en el contexto de Spring, eliminando la necesidad de configurarlas manualmente en `application.properties`.
+
+**Archivo de Configuración:** `compose.yaml`
+
+---
+
+### 🧪 jqwik (Property-Based Testing)
+
+Permite validar **invariantes** de negocio generando cientos de entradas aleatorias automáticamente. A diferencia de los tests tradicionales (basados en ejemplos), jqwik busca casos de borde que un humano podría olvidar.
+
+**Uso Recomendado:** Para reglas de negocio complejas, validación de rangos, transformaciones de datos y algoritmos.
+
+**Ejemplo (`JqwikExampleTest.java`):**
+```java
+@Property
+void additionIsCommutative(@ForAll int a, @ForAll int b) {
+    assertThat(a + b).isEqualTo(b + a);
+}
+
+@Property
+void percentageShouldStayInValidRange(
+    @ForAll @IntRange(min = 0, max = 100) int percentage
+) {
+    assertThat(percentage).isBetween(0, 100);
+}
 ```
 
 ---
