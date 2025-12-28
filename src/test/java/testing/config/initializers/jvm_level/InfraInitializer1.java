@@ -1,6 +1,7 @@
 package testing.config.initializers.jvm_level;
 
 import org.flywaydb.core.Flyway;
+import testing.config.FlywayConfig;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -31,7 +32,7 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
                 postgres.getUsername(),
                 postgres.getPassword())
                 .locations("db/migrations")
-                // .schemas(new String[]{"yourSchema", ""})
+                .schemas(FlywayConfig.SCHEMAS)
                 .load();
         flyway.migrate();
     }

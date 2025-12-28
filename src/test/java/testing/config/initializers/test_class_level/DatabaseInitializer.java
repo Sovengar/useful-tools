@@ -1,6 +1,7 @@
 package testing.config.initializers.test_class_level;
 
 import org.flywaydb.core.Flyway;
+import testing.config.FlywayConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -47,7 +48,7 @@ public abstract class DatabaseInitializer {
                 postgres.getUsername(),
                 postgres.getPassword())
                 .locations("db/migrations")
-                // .schemas(new String[]{"yourSchema", ""})
+                .schemas(FlywayConfig.SCHEMAS)
                 .load();
         flyway.migrate();
     }

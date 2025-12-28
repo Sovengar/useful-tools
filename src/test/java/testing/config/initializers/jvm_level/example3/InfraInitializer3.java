@@ -1,6 +1,7 @@
 package testing.config.initializers.jvm_level.example3;
 
 import org.flywaydb.core.Flyway;
+import testing.config.FlywayConfig;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -25,7 +26,7 @@ public class InfraInitializer3 implements BeforeAllCallback {
                 postgres.getUsername(),
                 postgres.getPassword())
                 .locations("db/migrations")
-                // .schemas(new String[]{"yourSchema", ""})
+                .schemas(FlywayConfig.SCHEMAS)
                 .load();
         flyway.migrate();
     }
