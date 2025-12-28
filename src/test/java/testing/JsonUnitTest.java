@@ -29,7 +29,7 @@ import static net.javacrumbs.jsonunit.core.Option.*;
  */
 @ActiveProfiles("test")
 @DisplayName("JSON-Unit Examples")
-class JsonUnitExamplesTest {
+class JsonUnitTest {
 
     private final Faker faker = new Faker();
 

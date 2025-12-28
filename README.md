@@ -92,6 +92,10 @@ Genera reportes de cobertura de tests.
 
 ### 🧬 Pitest (Mutation Testing)
 
+**Concepto**: Herramienta que transforma el código compilado (bytecode) insertando "mutaciones" (bugs artificiales) para verificar si los tests son capaces de detectarlos.
+*   **Objetivo**: Obtener una métrica de coverage mucho más realista que la simple cobertura de líneas. Si un mutante sobrevive, significa que el test no es lo suficientemente robusto.
+*   **Coste**: Hace que los tests sean mucho más lentos. Usar en situaciones críticas o para aprendizaje.
+
 Introduce mutaciones en el código y verifica que los tests las detecten.
 
 ```bash
@@ -363,32 +367,58 @@ static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-
 
 ---
 
-## 📁 Estructura del Proyecto
 
-```
-src/
-├── main/
-│   ├── java/testing/
-│   │   ├── config/
-│   │   │   └── FlywayConfig.java         ← Flyway config
-│   ├── ...
-│   └── resources/
-│       ├── application.properties
-│       ├── spy.properties              ← P6Spy config
-│       └── db/migration/
-│           └── V1__create_tables.sql   ← Flyway
-├── test/
-│   └── java/testing/
-│       └── ArchUnitTest.java           ← ArchUnit
-│       └── JsonUnitExamplesTest.java   ← JSON-Unit
-│       │── QueryDslIT.java             ← QueryDSL (Failsafe)
-│       ├── approvaltests/
-│       │   └── ApprovalTestsExamples.java ← ApprovalTests
-│       ├── testcontainers/
-│           └── TestContainersIT.java       ← Testcontainers (Failsafe)
-└── rewrite.yml                             ← OpenRewrite config
-```
+<br>
 
+<div align="center">
+
+## 📂 Estructura del Proyecto
+
+```mermaid
+graph TD
+    classDef dir fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef file fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    
+    root[🌿 spring-testcontainers]:::dir
+    srcMain[src/main/java]:::dir
+    srcTest[src/test/java]:::dir
+    
+    %% Main Packages
+    testingPkg[testing]:::dir
+    configPkg[config]:::dir
+    
+    %% Files in Main
+    AppRunner[AppRunner.java]:::file
+    Calculator[Calculator.java]:::file
+    Student[Student.java]:::file
+    StudentRepo[StudentRepository.java]:::file
+    
+    %% Files in Test
+    ArchTest[ArchUnitTest.java]:::file
+    JqwikTe[JqwikTest.java]:::file
+    JsonTest[JsonUnitTest.java]:::file
+    Approval[ApprovalTestsExamples.java]:::file
+    PitestT[PitestTest.java]:::file
+    
+    root --> srcMain
+    root --> srcTest
+    srcMain --> testingPkg
+    srcTest --> testingPkg
+    
+    testingPkg --> AppRunner
+    testingPkg --> Calculator
+    testingPkg --> Student
+    testingPkg --> StudentRepo
+    
+    testingPkg --> configPkg
+    
+    testingPkg --> ArchTest
+    testingPkg --> JqwikTe
+    testingPkg --> JsonTest
+    testingPkg --> Approval
+    testingPkg --> PitestT
+```
+</div>
 ---
 
 ## 🚀 Requisitos

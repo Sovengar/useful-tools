@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * - net.jqwik:jqwik
  * ═══════════════════════════════════════════════════════════════════════════════
  */
-class JqwikExampleTest {
+class JqwikTest {
 
     @Property
     void lengthOfConcatenatedStringIsSumOfLengths(
