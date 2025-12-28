@@ -2,11 +2,9 @@ package testing.testcontainers;
 
 import static org.junit.Assert.assertThat;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.junit.jupiter.api.Tag;
 import org.springframework.test.context.ActiveProfiles;
@@ -21,14 +19,13 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import testing.config.dev.PostgresContainerBean;
-import testing.config.initializers.UseInfraInitializer1;
-import testing.config.initializers.UseInfraInitializer3;
-import testing.config.initializers.jvm_level.InfraInitializer1;
-import testing.config.initializers.jvm_level.example3.InfraInitializer3;
-import testing.config.initializers.jvm_level.InfraInitializer2;
-import testing.config.initializers.test_class_level.Junit5ITInitializer;
-import testing.studentModel.StudentRepository;
+import testing.testcontainers.config.dev.PostgresContainerBean;
+import testing.testcontainers.config.initializers.UseInfraInitializer1;
+import testing.testcontainers.config.initializers.UseInfraInitializer3;
+import testing.testcontainers.config.initializers.jvm_level.InfraInitializer1;
+import testing.testcontainers.config.initializers.jvm_level.example3.InfraInitializer3;
+import testing.testcontainers.config.initializers.jvm_level.InfraInitializer2;
+import testing.testcontainers.config.initializers.test_class_level.Junit5ITInitializer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

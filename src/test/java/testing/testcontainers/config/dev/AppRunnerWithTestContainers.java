@@ -1,4 +1,4 @@
-package testing.config.dev;
+package testing.testcontainers.config.dev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Profile;

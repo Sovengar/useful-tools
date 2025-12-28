@@ -1,7 +1,7 @@
-package testing.config.initializers;
+package testing.testcontainers.config.initializers;
 
 import org.junit.jupiter.api.extension.ExtendWith;
-import testing.config.initializers.jvm_level.example3.InfraInitializer3;
+import testing.testcontainers.config.initializers.jvm_level.example3.InfraInitializer3;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

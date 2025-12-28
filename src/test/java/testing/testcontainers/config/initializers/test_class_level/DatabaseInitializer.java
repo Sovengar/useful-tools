@@ -1,26 +1,27 @@
-package testing.config.initializers.test_class_level;
+package testing.testcontainers.config.initializers.test_class_level;
 
 import org.flywaydb.core.Flyway;
 import testing.config.FlywayConfig;
 import org.junit.jupiter.api.BeforeAll;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+import testing.config.runners.DatabaseRunner;
 
+@DatabaseRunner
+@DataJpaTest
 @Testcontainers // jUnit5 annotation, lets jUnit5 controls lifecycle of the container
 // This initializer will be shared for all tests in a concrete test class (The
 // class that extends from this one).
 // But since it is managed with Junit5 Testcontainers extension, the container
 // lifecycle is managed by Junit5.
-// Which means that after the tests of the concrete test class are f//Which
-// means that after the tests of the concrete test class are finished, the
-// container will be stopped and thus not shareable.inished, the container will
-// be stopped.
-public abstract class Junit5ITInitializer {
+// Which means that after the tests of the concrete test class are finished, the
+// container will be stopped and thus not shareable.
+public abstract class DatabaseInitializer {
 
     @Container // jUnit5 annotation, lets jUnit5 controls lifecycle of the container
     // @ServiceConnection // Spring annotation coming from

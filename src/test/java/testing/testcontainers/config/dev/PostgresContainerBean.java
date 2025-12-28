@@ -1,4 +1,4 @@
-package testing.config.dev;
+package testing.testcontainers.config.dev;
 
 import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;

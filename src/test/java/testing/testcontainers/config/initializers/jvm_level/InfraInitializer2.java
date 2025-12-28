@@ -1,4 +1,4 @@
-package testing.config.initializers.jvm_level;
+package testing.testcontainers.config.initializers.jvm_level;
 
 import com.github.javafaker.Faker;
 import org.flywaydb.core.Flyway;

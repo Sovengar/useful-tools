@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.transaction.Transactional;
-import testing.config.initializers.UseInfraInitializer1;
+import testing.testcontainers.config.initializers.UseInfraInitializer1;
 import testing.studentModel.Gender;
 import testing.studentModel.Student;
 import testing.studentModel.StudentQueryRepository;

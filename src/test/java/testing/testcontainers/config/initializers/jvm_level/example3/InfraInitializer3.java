@@ -1,4 +1,4 @@
-package testing.config.initializers.jvm_level.example3;
+package testing.testcontainers.config.initializers.jvm_level.example3;
 
 import org.flywaydb.core.Flyway;
 import testing.config.FlywayConfig;

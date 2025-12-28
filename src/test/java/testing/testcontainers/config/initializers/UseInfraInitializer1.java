@@ -1,7 +1,7 @@
-package testing.config.initializers;
+package testing.testcontainers.config.initializers;
 
 import org.springframework.test.context.ContextConfiguration;
-import testing.config.initializers.jvm_level.InfraInitializer1;
+import testing.testcontainers.config.initializers.jvm_level.InfraInitializer1;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
