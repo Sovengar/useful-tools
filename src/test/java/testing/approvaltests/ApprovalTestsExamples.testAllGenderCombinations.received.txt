@@ -1,3 +1,0 @@
-Gender: MALE -> Student(id=1, name=Test User, email=test@example.com, gender=MALE)
-Gender: FEMALE -> Student(id=1, name=Test User, email=test@example.com, gender=FEMALE)
-Gender: OTHER -> Student(id=1, name=Test User, email=test@example.com, gender=OTHER)

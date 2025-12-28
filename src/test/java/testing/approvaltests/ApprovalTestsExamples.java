@@ -95,10 +95,10 @@ class ApprovalTestsExamples {
         // When - Manual JSON formatting (or use Jackson)
         String json = String.format("""
                 {
-                  "id": %d,
-                  "name": "%s",
-                  "email": "%s",
-                  "gender": "%s"
+                    "id": %d,
+                    "name": "%s",
+                    "email": "%s",
+                    "gender": "%s"
                 }""",
                 student.getId(),
                 student.getName(),
