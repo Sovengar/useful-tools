@@ -11,7 +11,7 @@ import org.testcontainers.utility.DockerImageName;
 public class InfraInitializer1 implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     // Static initialization (After JVM, before Spring Test)
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+    public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             DockerImageName.parse("postgres").withTag("16-alpine"))
             .withReuse(true); // Ensure that testcontainers.reuse.enable=true is set in
                               // ~/.testcontainers.properties
@@ -38,6 +38,7 @@ public class InfraInitializer1 implements ApplicationContextInitializer<Configur
 
     @Override
     public void initialize(ConfigurableApplicationContext ctx) {
+        ctx.getBeanFactory().registerSingleton("postgres", postgres); //If you want to @Autowired this container
         TestPropertyValues.of(
                 // "spring.kafka.bootstrap-servers=" + kafka.getBootstrapServers(),
                 "spring.datasource.url=" + postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"), // P6SPY WORKAROUND

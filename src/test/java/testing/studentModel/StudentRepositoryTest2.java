@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -27,8 +28,14 @@ class StudentRepositoryTest2 {
     private StudentRepository underTest;
 
     @Container
-    @ServiceConnection
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", () -> postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"));
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
 
     @AfterEach
     void tearDown() {
@@ -39,7 +46,7 @@ class StudentRepositoryTest2 {
     void connectionEstablished() {
         assertThat(postgres.isCreated()).isTrue();
         assertThat(postgres.isRunning()).isTrue();
-        System.out.println("JDBC URL -> " + postgres.getJdbcUrl()) ;
+        System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
     }
 
     @Test
@@ -49,8 +56,7 @@ class StudentRepositoryTest2 {
         Student student = new Student(
                 "Jamila",
                 email,
-                Gender.FEMALE
-        );
+                Gender.FEMALE);
         underTest.save(student);
 
         // when
