@@ -158,12 +158,15 @@ Intercepta y loguea todas las queries SQL. Habilitado por defecto en los perfile
 **Configuración (`spy.properties`):**
 ```properties
 appender=com.p6spy.engine.spy.appender.Slf4JLogger
-customLogMessageFormat=P6SPY | %(executionTime)ms | %(category) | %(effectiveSql)
+# MultiLineFormat permite ver la query original y la query con valores
+logMessageFormat=com.p6spy.engine.spy.appender.MultiLineFormat
 ```
 
 **Output:**
 ```
-P6SPY | 5ms | statement | SELECT * FROM student WHERE email = 'john@test.com'
+P6SPY | took 1ms | statement | connection 10
+insert into student (email,gender,name,id) values (?,?,?,?)
+insert into student (email,gender,name,id) values ('john@test.com','MALE','John',10);
 ```
 
 ---
