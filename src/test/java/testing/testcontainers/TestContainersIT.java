@@ -3,6 +3,7 @@ package testing.testcontainers;
 import static org.junit.Assert.assertThat;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -22,6 +23,7 @@ import testing.testcontainers.config.dev.PostgresContainerBean;
 import testing.testcontainers.config.initializers.UseInfraInitializer1;
 import testing.testcontainers.config.initializers.UseInfraInitializer3;
 import testing.testcontainers.config.initializers.jvm_level.InfraInitializer1;
+import testing.testcontainers.config.initializers.jvm_level.example3.AppPostgresContainer;
 import testing.testcontainers.config.initializers.jvm_level.example3.InfraInitializer3;
 import testing.testcontainers.config.initializers.jvm_level.InfraInitializer2;
 import testing.testcontainers.config.initializers.test_class_level.Junit5ITInitializer;
@@ -49,9 +51,11 @@ class TestContainersIT {
     class ExtendsWithExample {
         @Test
         void connectionEstablished() {
-            assertThat(InfraInitializer3.postgres.isCreated()).isTrue();
-            assertThat(InfraInitializer3.postgres.isRunning()).isTrue();
-            System.out.println("JDBC URL -> " + InfraInitializer3.postgres.getJdbcUrl());
+            var postgres = InfraInitializer3.postgres;
+            assertThat(postgres.isCreated()).isTrue();
+            assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
+            System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
 
@@ -63,9 +67,11 @@ class TestContainersIT {
     class ImportExample {
         @Test
         void connectionEstablished() {
-            assertThat(InfraInitializer1.postgres.isCreated()).isTrue();
-            assertThat(InfraInitializer1.postgres.isRunning()).isTrue();
-            System.out.println("JDBC URL -> " + InfraInitializer1.postgres.getJdbcUrl());
+            PostgreSQLContainer<?> postgres = InfraInitializer1.postgres;
+            assertThat(postgres.isCreated()).isTrue();
+            assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
+            System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
 
@@ -78,6 +84,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
             System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
@@ -87,7 +94,7 @@ class TestContainersIT {
     @Nested
     @Tag("integration")
     class InClassExample {
-        public static GenericContainer postgres = new PostgreSQLContainer();
+        public static GenericContainer postgres = new PostgreSQLContainer(); //Static means it will be reused for all tests in this class
 
         @DynamicPropertySource
         static void properties(DynamicPropertyRegistry registry) {
@@ -106,6 +113,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
             System.out.println("JDBC URL -> " + ((PostgreSQLContainer<?>) postgres).getJdbcUrl());
         }
     }
@@ -117,7 +125,7 @@ class TestContainersIT {
     @Tag("integration")
     class InClassExample2 {
         @Container
-        protected static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
+        private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine"); //Static means it will be reused for all tests in this class
 
         @DynamicPropertySource
         static void configureProperties(DynamicPropertyRegistry registry) {
@@ -130,6 +138,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
             System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
@@ -141,10 +150,10 @@ class TestContainersIT {
     @Tag("integration")
     class InClassExample3 {
         @Container
-        static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
+        private PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine"); //No static, one container per test
 
         @DynamicPropertySource
-        static void properties(DynamicPropertyRegistry registry) {
+        void properties(DynamicPropertyRegistry registry) {
             registry.add("spring.datasource.url", () -> postgres.getJdbcUrl().replace("jdbc:", "jdbc:p6spy:"));
             registry.add("spring.datasource.username", postgres::getUsername);
             registry.add("spring.datasource.password", postgres::getPassword);
@@ -154,6 +163,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
             System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
@@ -168,6 +178,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgres.isCreated()).isTrue();
             assertThat(postgres.isRunning()).isTrue();
+            System.out.println("Port: " + postgres.getMappedPort(5432));
             System.out.println("JDBC URL -> " + postgres.getJdbcUrl());
         }
     }
@@ -186,6 +197,7 @@ class TestContainersIT {
         void connectionEstablished() {
             assertThat(postgresContainer.isCreated()).isTrue();
             assertThat(postgresContainer.isRunning()).isTrue();
+            System.out.println("Port: " + postgresContainer.getMappedPort(5432));
             System.out.println("JDBC URL -> " + postgresContainer.getJdbcUrl());
         }
     }
