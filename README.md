@@ -22,6 +22,8 @@ Proyecto para probar herramientas utiles.
 | **jqwik**         | Property-based tests    | `JqwikExampleTest.java`             |
 | **Testcontainers**| Contenedores para tests | `TestContainersIT.java`             |
 | **Mockito**       | Mocks y Stubs           | `MockitoShowcaseTest.java`          |
+| **WireMock**      | Mocking de APIs HTTP    | `WireMockShowcaseTest.java`         |
+| **REST Assured**   | Testing de APIs HTTP    | `RestAssuredShowcaseTest.java`      |
 
 
 ---
@@ -62,6 +64,8 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=ApprovalTestsExamples   # ApprovalTests
 ./mvnw test -Dtest=JsonUnitExamplesTest    # JSON-Unit
 ./mvnw test -Dtest=MockitoShowcaseTest     # Mockito
+./mvnw test -Dtest=WireMockShowcaseTest    # WireMock
+./mvnw test -Dtest=RestAssuredShowcaseTest # REST Assured
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -404,6 +408,62 @@ assertThat(stringCaptor.getValue()).contains("Success");
 when(service.call())
     .thenThrow(new RuntimeException())
     .thenReturn("Success!");
+```
+
+---
+
+```
+
+---
+
+### 🌐 WireMock (Mocking de APIs HTTP)
+
+Permite simular servicios HTTP externos (APIs de terceros, microservicios) para realizar tests de integración o tests unitarios sociales sin depender de la red o de la disponibilidad de esos servicios.
+
+**Uso Principal**: Mockear dependencias HTTP externas.
+
+```bash
+./mvnw test -Dtest=WireMockShowcaseTest
+```
+
+#### 💡 Conceptos Clave de WireMock
+
+1.  **Stubbing (`stubFor`)**: Define qué responder ante una petición HTTP específica.
+2.  **Request Matching**: Filtrado potente de peticiones por URL, headers, cookies y cuerpo (JSON, XML, regex).
+3.  **Fault Injection**: Simula fallos de red (conexiones cerradas, respuestas lentas, datos corruptos) para probar la resiliencia de la APP.
+4.  **Response Templating**: Genera respuestas basadas en los datos de la petición (ej. devolver el mismo ID enviado).
+
+---
+
+### 🧪 REST Assured (Testing de APIs HTTP)
+
+Biblioteca para testar APIs REST de forma fluida y legible, inspirada en BDD (Given/When/Then). Se integra perfectamente con Hamcrest para validaciones potentes.
+
+**Uso Principal**: Validar endpoints de nuestra APP o de mocks (como WireMock).
+
+```bash
+./mvnw test -Dtest=RestAssuredShowcaseTest
+```
+
+#### 💡 Conceptos Clave de REST Assured
+
+1.  **Sintaxis Gherkin (`given().when().then()`)**: Estructura de test muy legible y semántica.
+2.  **Validación de JSON Path**: Permite navegar por estructuras JSON complejas y aplicar matchers.
+3.  **Configuración de Base Path/Port**: Facilita el testeo contra diferentes entornos o servidores dinámicos (como Testcontainers o WireMock).
+
+**Ejemplo Combinado (WireMock + REST Assured):**
+```java
+// Mockear endpoint con WireMock
+stubFor(get("/api/user/1").willReturn(okJson("{\"name\":\"Antigravity\"}")));
+
+// Testear con REST Assured
+given()
+    .port(wiremockPort)
+.when()
+    .get("/api/user/1")
+.then()
+    .statusCode(200)
+    .body("name", is("Antigravity"));
 ```
 
 ---
