@@ -69,6 +69,7 @@
 		<cucumber.version>7.20.1</cucumber.version>
 		<selenium.version>4.27.0</selenium.version>
 		<webdrivermanager.version>5.9.2</webdrivermanager.version>
+		<awaitility.version>4.2.2</awaitility.version>
 	</properties>
 
 	<dependencyManagement>
@@ -339,6 +340,18 @@
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>${webdrivermanager.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- ═══════════════════════════════════════════════════════════════════
+		     AWAITILITY - Async testing made easy
+		     Better than Thread.sleep(): Polls for conditions, has timeouts.
+		     Usage: See AwaitilityShowcaseTest.java
+		     ═══════════════════════════════════════════════════════════════════ -->
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>${awaitility.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

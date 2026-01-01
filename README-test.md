@@ -22,6 +22,7 @@ Proyecto para demostrar el uso de diversas herramientas de testing y aseguramien
 | **JUnit 5**        | Framework de testing    | `JUnit5ShowcaseTest.java`      |
 | **Cucumber**       | BDD (Gherkin)           | `CucumberShowcaseTest.java`    |
 | **Selenium**       | E2E Testing (Browser)   | `SeleniumShowcaseTest.java`    |
+| **Awaitility**     | Testing asíncrono       | `AwaitilityShowcaseTest.java`  |
 
 ---
 
@@ -82,6 +83,15 @@ Especificaciones ejecutables en Gherkin (inglés).
 ### 🌐 Selenium (E2E)
 Automatización de flujos de usuario en navegador (Headless).
 [SeleniumShowcaseTest.java](file:///c:/Users/buble/OneDrive/DEV/Projects/Infra/useful-tools/src/test/java/testing/selenium/SeleniumShowcaseTest.java)
+
+### ⏳ Awaitility (Testing Asíncrono)
+Alternativa superior a `Thread.sleep()` que usa **polling** dinámico.
+[AwaitilityShowcaseTest.java](file:///c:/Users/buble/OneDrive/DEV/Projects/Infra/useful-tools/src/test/java/testing/awaitility/AwaitilityShowcaseTest.java)
+
+#### ❓ ¿Por qué es mejor que `Thread.sleep()`?
+1. **⏱️ Determinismo**: No espera un tiempo fijo. Si la condición se cumple en 10ms, el test sigue inmediatamente.
+2. **🛡️ Robustez**: Permite configurar *timeouts* claros y re-evaluaciones automáticas (*polling interval*).
+3. **📖 Semántica**: Describe **qué** esperas, no **cuánto** tiempo duerme el hilo.
 
 ---
 
@@ -379,10 +389,6 @@ Biblioteca de aserciones que permite escribir tests mucho más legibles y fácil
 El estándar para testing en Java. Proporciona anotaciones para el ciclo de vida, agrupamiento de tests y un potente motor para tests parametrizados.
 
 **Uso Principal**: Orquestación y estructura de los tests.
-
-```bash
-./mvnw test -Dtest=JUnit5ShowcaseTest
-```
 
 #### 💡 Conceptos Clave de JUnit 5
 

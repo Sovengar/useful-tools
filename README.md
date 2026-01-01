@@ -116,6 +116,7 @@ graph TD
 ./mvnw test -Dtest=FileParameterizedTest    # JUnit 5 File-based
 ./mvnw test -Dtest=CucumberShowcaseTest
 ./mvnw test -Dtest=SeleniumShowcaseTest
+./mvnw test -Dtest=AwaitilityShowcaseTest
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
