@@ -26,6 +26,7 @@ Proyecto para probar herramientas utiles.
 | **REST Assured**   | Testing de APIs HTTP    | `RestAssuredShowcaseTest.java`      |
 | **AssertJ**        | Asserts fluidos         | `AssertJ.java`                      |
 | **JUnit 5**        | Framework de testing    | `JUnit5ShowcaseTest.java`           |
+| **Cucumber**       | BDD (Gherkin)           | `CucumberShowcaseTest.java`          |
 
 
 ---
@@ -72,6 +73,7 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=JUnit5ShowcaseTest      # JUnit 5
 ./mvnw test -Dtest=ParameterizedShowcaseTest # JUnit 5 Parameterized
 ./mvnw test -Dtest=FileParameterizedTest    # JUnit 5 File-based
+./mvnw test -Dtest=CucumberShowcaseTest     # Cucumber (BDD)
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -547,6 +549,35 @@ void fileTest(FileTestCase testCase) {
     var actual = service.execute(testCase.getInput());
     assertThatJson(actual).isEqualTo(testCase.getExpectedOutput());
 }
+```
+
+---
+
+---
+
+### 🥒 Cucumber (BDD - Behavior Driven Development)
+
+Permite definir el comportamiento del sistema en lenguaje natural (Gherkin), facilitando la comunicación entre perfiles técnicos y de negocio.
+
+**Uso Principal**: Acceptance tests y especificación ejecutable.
+
+```bash
+./mvnw test -Dtest=CucumberShowcaseTest
+```
+
+#### 💡 Key Concepts of Cucumber
+
+1.  **Gherkin**: A structured language (Given/When/Then) for defining scenarios.
+2.  **Feature Files**: `.feature` files containing the specifications.
+3.  **Step Definitions**: Java classes mapping Gherkin lines to executable code.
+4.  **Cucumber + Spring**: Integration with the Spring context to inject beans into steps.
+
+**Example Scenario (Gherkin):**
+```gherkin
+Scenario: Transform a simple message
+  Given I have a transformer service
+  When I transform the message "hello cucumber"
+  Then the result should be "HELLO CUCUMBER"
 ```
 
 ---

@@ -66,7 +66,20 @@
 		<rewrite.version>6.26.0</rewrite.version>
 		<wiremock.version>3.10.0</wiremock.version>
 		<rest-assured.version>5.5.0</rest-assured.version>
+		<cucumber.version>7.20.1</cucumber.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-bom</artifactId>
+				<version>${cucumber.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- ═══════════════════════════════════════════════════════════════════
@@ -285,6 +298,31 @@
 			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- ═══════════════════════════════════════════════════════════════════
+		     CUCUMBER - BDD Testing
+		     Usage: See CucumberTestRunner.java
+		     ═══════════════════════════════════════════════════════════════════ -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -343,9 +381,20 @@
 			     ═══════════════════════════════════════════════════════════════════ -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.3</version>
 				<configuration>
 					<excludedGroups>integration</excludedGroups>
 				</configuration>
+				<dependencies>
+					<!-- This dependency is necessary for Maven Surefire to correctly detect and 
+					     report failures when running Cucumber via the JUnit Platform Suite Engine. 
+					     Without it, scenarios may run but test failures won't break the build. -->
+					<dependency>
+						<groupId>io.cucumber</groupId>
+						<artifactId>cucumber-junit-platform-engine</artifactId>
+						<version>${cucumber.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 			<!-- ═══════════════════════════════════════════════════════════════════
