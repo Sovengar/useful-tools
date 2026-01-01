@@ -397,6 +397,7 @@ Herramienta esencial para aislar el código bajo test mediante la creación de o
 6.  **Argument Captor (`ArgumentCaptor`)**: Captura los argumentos pasados a un mock para realizar aserciones detalladas sobre ellos a posteriori.
 7.  **Spies (`spy`)**: Mocks parciales que envuelven un objeto real. Ejecutan el código real a menos que se haga un stub específico.
 8.  **BDDMockito (`given...willReturn`)**: Estilo sintáctico alineado con BDD (Behavior Driven Development) para mejorar la legibilidad.
+9.  **Static Mocking (`mockStatic`)**: Permite mockear métodos estáticos. **Es obligatorio** usar `try-with-resources` para asegurar que el mock se cierra y no afecta a otros tests.
 
 **Ejemplo de Verificación y Captura:**
 ```java
