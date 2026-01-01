@@ -2,6 +2,7 @@ package testing.cucumber.tennis_kata;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import testing._config.BasicTestTags;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * uso
  * específico con su propio nombre descriptivo.
  */
+@BasicTestTags
 class TennisScoreTest {
     TennisScore tennisScore = new TennisScore();
 

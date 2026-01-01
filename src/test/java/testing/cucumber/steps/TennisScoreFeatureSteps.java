@@ -3,6 +3,7 @@ package testing.cucumber.steps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import testing._config.BasicTestTags;
 import testing.cucumber.tennis_kata.config.TennisCucumberContext;
 import testing.cucumber.tennis_kata.TennisScore;
 
@@ -20,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * se encargan de que todos los steps de un mismo escenario compartan la misma
  * instancia.
  */
+@BasicTestTags
 public class TennisScoreFeatureSteps {
 
     private final TennisCucumberContext context;
