@@ -21,6 +21,8 @@ Proyecto para probar herramientas utiles.
 | **JSON-Unit**     | Comparación JSON        | `JsonUnitExamplesTest.java`         |
 | **jqwik**         | Property-based tests    | `JqwikExampleTest.java`             |
 | **Testcontainers**| Contenedores para tests | `TestContainersIT.java`             |
+| **Mockito**       | Mocks y Stubs           | `MockitoShowcaseTest.java`          |
+
 
 ---
 
@@ -59,6 +61,7 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=ArchUnitTest            # ArchUnit
 ./mvnw test -Dtest=ApprovalTestsExamples   # ApprovalTests
 ./mvnw test -Dtest=JsonUnitExamplesTest    # JSON-Unit
+./mvnw test -Dtest=MockitoShowcaseTest     # Mockito
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -367,6 +370,43 @@ static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-
 
 ---
 
+
+---
+
+### 🎭 Mockito (Mocks y Stubs)
+
+Herramienta esencial para aislar el código bajo test mediante la creación de objetos simulados (mocks). Fundamental para tests unitarios sociales donde queremos controlar el comportamiento de los colaboradores.
+
+**Uso Principal**: Dobles de test (Mocks, Stubs, Spies) y verificaciones de comportamiento.
+
+```bash
+./mvnw test -Dtest=MockitoShowcaseTest
+```
+
+#### 💡 Conceptos Clave de Mockito
+
+1.  **Stubbing (`when...thenReturn`)**: Define qué debe devolver un método del mock cuando se llama con ciertos parámetros.
+2.  **Dynamic Stubs (`thenAnswer`)**: Permite lógica dinámica basada en los argumentos recibidos. Muy útil para simular cálculos o comportamientos complejos.
+3.  **Sequential Stubbing**: Permite definir diferentes respuestas para llamadas sucesivas al mismo método (útil para simular **retries** o cambios de estado).
+4.  **Verification (`verify`)**: Comprueba que un método ha sido llamado con los parámetros esperados, cuántas veces (`times`, `never`), o incluso el orden (`InOrder`).
+5.  **Argument Matchers (`any()`, `eq()`, `argThat()`)**: Permiten hacer stubs o verificaciones flexibles sin necesidad de conocer el valor exacto del parámetro.
+6.  **Argument Captor (`ArgumentCaptor`)**: Captura los argumentos pasados a un mock para realizar aserciones detalladas sobre ellos a posteriori.
+7.  **Spies (`spy`)**: Mocks parciales que envuelven un objeto real. Ejecutan el código real a menos que se haga un stub específico.
+8.  **BDDMockito (`given...willReturn`)**: Estilo sintáctico alineado con BDD (Behavior Driven Development) para mejorar la legibilidad.
+
+**Ejemplo de Verificación y Captura:**
+```java
+// Capturar un argumento para inspeccionarlo
+verify(service).performAction(stringCaptor.capture());
+assertThat(stringCaptor.getValue()).contains("Success");
+
+// Stubbing secuencial (Simular fallo y luego éxito)
+when(service.call())
+    .thenThrow(new RuntimeException())
+    .thenReturn("Success!");
+```
+
+---
 
 <br>
 
