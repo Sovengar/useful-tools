@@ -67,6 +67,8 @@
 		<wiremock.version>3.10.0</wiremock.version>
 		<rest-assured.version>5.5.0</rest-assured.version>
 		<cucumber.version>7.20.1</cucumber.version>
+		<selenium.version>4.27.0</selenium.version>
+		<webdrivermanager.version>5.9.2</webdrivermanager.version>
 	</properties>
 
 	<dependencyManagement>
@@ -321,6 +323,22 @@
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- ═══════════════════════════════════════════════════════════════════
+		     SELENIUM - E2E Testing
+		     ═══════════════════════════════════════════════════════════════════ -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>${webdrivermanager.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

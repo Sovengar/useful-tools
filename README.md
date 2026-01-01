@@ -27,6 +27,7 @@ Proyecto para probar herramientas utiles.
 | **AssertJ**        | Asserts fluidos         | `AssertJ.java`                      |
 | **JUnit 5**        | Framework de testing    | `JUnit5ShowcaseTest.java`           |
 | **Cucumber**       | BDD (Gherkin)           | `CucumberShowcaseTest.java`          |
+| **Selenium**       | E2E Testing (Browser)   | `SeleniumShowcaseTest.java`          |
 
 
 ---
@@ -74,6 +75,7 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=ParameterizedShowcaseTest # JUnit 5 Parameterized
 ./mvnw test -Dtest=FileParameterizedTest    # JUnit 5 File-based
 ./mvnw test -Dtest=CucumberShowcaseTest     # Cucumber (BDD)
+./mvnw test -Dtest=SeleniumShowcaseTest     # Selenium (E2E)
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -578,6 +580,38 @@ Scenario: Transform a simple message
   Given I have a transformer service
   When I transform the message "hello cucumber"
   Then the result should be "HELLO CUCUMBER"
+```
+
+---
+
+### 🌐 Selenium (E2E Testing)
+
+Permite automatizar la interacción con el navegador para realizar pruebas de extremo a extremo (End-to-End).
+
+**Uso Principal**: Acceptance tests, validación de flujos de usuario completos.
+
+```bash
+./mvnw test -Dtest=SeleniumShowcaseTest
+```
+
+#### 💡 Key Concepts of Selenium
+
+1.  **WebDriver**: Interfaz para controlar el navegador (Chrome, Firefox, etc.).
+2.  **WebDriverManager**: Biblioteca que gestiona automáticamente la descarga y configuración de los binarios de los drivers.
+3.  **Headless Mode**: Ejecución sin interfaz gráfica, ideal para entornos de CI/CD.
+4.  **Wait Strategies**: Uso de `WebDriverWait` y `ExpectedConditions` para manejar la asincronía de las aplicaciones web modernas.
+
+**Ejemplo de Test (Java):**
+```java
+@Test
+void loginTest() {
+    driver.get("https://example.com/login");
+    driver.findElement(By.id("user")).sendKeys("admin");
+    driver.findElement(By.id("pass")).sendKeys("1234");
+    driver.findElement(By.id("login-btn")).click();
+    
+    assertThat(driver.getTitle()).isEqualTo("Dashboard");
+}
 ```
 
 ---
