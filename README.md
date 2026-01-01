@@ -25,6 +25,7 @@ Proyecto para probar herramientas utiles.
 | **WireMock**      | Mocking de APIs HTTP    | `WireMockShowcaseTest.java`         |
 | **REST Assured**   | Testing de APIs HTTP    | `RestAssuredShowcaseTest.java`      |
 | **AssertJ**        | Asserts fluidos         | `AssertJ.java`                      |
+| **JUnit 5**        | Framework de testing    | `JUnit5ShowcaseTest.java`           |
 
 
 ---
@@ -68,6 +69,9 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=WireMockShowcaseTest    # WireMock
 ./mvnw test -Dtest=RestAssuredShowcaseTest # REST Assured
 ./mvnw test -Dtest=AssertJ                 # AssertJ examples
+./mvnw test -Dtest=JUnit5ShowcaseTest      # JUnit 5
+./mvnw test -Dtest=ParameterizedShowcaseTest # JUnit 5 Parameterized
+./mvnw test -Dtest=FileParameterizedTest    # JUnit 5 File-based
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -508,6 +512,42 @@ Biblioteca de aserciones que permite escribir tests mucho más legibles y fácil
     } // Lanza todos los fallos aquí
     ```
 5.  **Custom Assertions**: Posibilidad de crear tus propias clases de aserción para tu dominio (ej. `VillaAssert`) para ganar expresividad.
+
+---
+
+---
+
+### 🃏 JUnit 5 (Framework de Testing)
+
+El estándar para testing en Java. Proporciona anotaciones para el ciclo de vida, agrupamiento de tests y un potente motor para tests parametrizados.
+
+**Uso Principal**: Orquestación y estructura de los tests.
+
+```bash
+./mvnw test -Dtest=JUnit5ShowcaseTest
+```
+
+#### 💡 Conceptos Clave de JUnit 5
+
+1.  **Ciclo de Vida**: `@BeforeEach`, `@AfterEach`, `@BeforeAll`, `@AfterAll`.
+2.  **Organización**: `@Nested` para jerarquías, `@Tag` para filtrado, `@DisplayName` para legibilidad.
+3.  **Tests Parametrizados (`@ParameterizedTest`)**:
+    - **Básicos**: `@ValueSource`, `@CsvSource`, `@EnumSource`.
+    - **Objetos**: `@MethodSource` para inyectar POJOs complejos.
+    - **Ficheros**: Carga dinámica mediante escaneo de recursos. **Cada caso de prueba es un par de ficheros** (`.in.json` y `.out.json`), facilitando la organización de payloads grandes y la detección de regresiones.
+
+> [!NOTE]
+> En el ejemplo de carga por ficheros, JUnit no lee un único JSON con una lista. En su lugar, el `MethodSource` escanea el classpath y genera una iteración por cada pareja de ficheros encontrada.
+
+**Ejemplo de Test Parametrizado desde Fichero:**
+```java
+@ParameterizedTest(name = "{0}")
+@MethodSource("testData")
+void fileTest(FileTestCase testCase) {
+    var actual = service.execute(testCase.getInput());
+    assertThatJson(actual).isEqualTo(testCase.getExpectedOutput());
+}
+```
 
 ---
 
