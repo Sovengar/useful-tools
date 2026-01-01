@@ -24,6 +24,7 @@ Proyecto para probar herramientas utiles.
 | **Mockito**       | Mocks y Stubs           | `MockitoShowcaseTest.java`          |
 | **WireMock**      | Mocking de APIs HTTP    | `WireMockShowcaseTest.java`         |
 | **REST Assured**   | Testing de APIs HTTP    | `RestAssuredShowcaseTest.java`      |
+| **AssertJ**        | Asserts fluidos         | `AssertJ.java`                      |
 
 
 ---
@@ -66,6 +67,7 @@ Proyecto para probar herramientas utiles.
 ./mvnw test -Dtest=MockitoShowcaseTest     # Mockito
 ./mvnw test -Dtest=WireMockShowcaseTest    # WireMock
 ./mvnw test -Dtest=RestAssuredShowcaseTest # REST Assured
+./mvnw test -Dtest=AssertJ                 # AssertJ examples
 
 # ═══════════════════════════════════════════════════════════════════
 # INTEGRATION TESTS (FAILSAFE - mvn verify)
@@ -466,6 +468,46 @@ given()
     .statusCode(200)
     .body("name", is("Antigravity"));
 ```
+
+---
+
+---
+
+### 💖 AssertJ (Assertions Fluidas)
+
+Biblioteca de aserciones que permite escribir tests mucho más legibles y fáciles de mantener gracias a su API fluida. Supera ampliamente a las aserciones básicas de JUnit.
+
+**Uso Principal**: Aserciones ricas y legibles en cualquier tipo de test.
+
+```bash
+./mvnw test -Dtest=AssertJ
+```
+
+#### 💡 Conceptos Clave de AssertJ
+
+1.  **Colecciones**: Aserciones potentes sobre contenido, orden y tamaño sin necesidad de bucles.
+    ```java
+    assertThat(list).hasSize(3).contains("A", "B").doesNotContain("C");
+    assertThat(list).containsExactlyInAnyOrder("B", "A", "C");
+    ```
+2.  **Mapping y Extracting**: Permite navegar por los atributos de una colección de objetos de forma sencilla.
+    ```java
+    assertThat(fellowship)
+        .extracting(Character::getName, Character::getAge)
+        .contains(tuple("Frodo", 33), tuple("Gandalf", 2000));
+    ```
+3.  **Fechas y Tiempo**: Aserciones amigables para tipos de `java.time`.
+    ```java
+    assertThat(lastLogin).isCloseTo(now(), byLessThan(1, SECONDS));
+    ```
+4.  **Soft Assertions**: Permiten ejecutar múltiples aserciones y ver todos los fallos al final, en lugar de detenerse en el primero.
+    ```java
+    try (var softly = new AutoCloseableSoftAssertions()) {
+        softly.assertThat(user.getName()).isEqualTo("John");
+        softly.assertThat(user.getAge()).isEqualTo(25);
+    } // Lanza todos los fallos aquí
+    ```
+5.  **Custom Assertions**: Posibilidad de crear tus propias clases de aserción para tu dominio (ej. `VillaAssert`) para ganar expresividad.
 
 ---
 
