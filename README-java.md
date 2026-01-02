@@ -198,6 +198,12 @@ Price price = new Price(10.0).withAmount(20.0);
 
 **URL**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
+**Generación Estática**:
+Para generar el fichero `openapi.json` de forma estática (útil para CI/CD), ejecuta:
+```bash
+./mvnw verify -DskipTests # Genera target/openapi.json
+```
+
 **Uso Recomendado**: Siempre que se expongan servicios REST para facilitar la integración con el frontend u otros equipos.
 
 **Ejemplo (`SwaggerShowcaseController.java`):**

@@ -396,6 +396,45 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<!-- Arranca la app en segundo plano para que el plugin de swagger pueda consultarla -->
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<!-- Detiene la app tras la generación del openapi.json -->
+					<execution>
+						<id>post-integration-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- ═══════════════════════════════════════════════════════════════════
+			     SPRINGDOC OPENAPI PLUGIN - Static file generation
+			     Generates target/openapi.json during 'verify' or 'integration-test'
+			     ═══════════════════════════════════════════════════════════════════ -->
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+					<outputFileName>openapi.json</outputFileName>
+					<outputDir>${project.build.directory}</outputDir>
+				</configuration>
 			</plugin>
 
 			<!-- ═══════════════════════════════════════════════════════════════════
