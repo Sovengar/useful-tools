@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
+import testing._utils.ConcurrentTest;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
@@ -33,6 +34,7 @@ import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.sli
  */
 @ActiveProfiles("test")
 @DisplayName("Architecture Tests (ArchUnit)")
+@ConcurrentTest
 class ArchUnitTest {
 
     private static JavaClasses importedClasses;

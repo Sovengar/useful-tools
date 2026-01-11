@@ -1,6 +1,7 @@
 package testing;
 
 import org.junit.jupiter.api.Test;
+import testing._utils.ConcurrentTest;
 import testing.application.Calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;

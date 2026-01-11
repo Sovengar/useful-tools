@@ -2,6 +2,7 @@ package testing.approvaltests;
 
 import com.github.javafaker.Faker;
 import org.approvaltests.Approvals;
+import org.approvaltests.combinations.CombinationApprovals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.QuietReporter;
 import org.approvaltests.reporters.UseReporter;
@@ -117,17 +118,34 @@ class ApprovalTestsExamples {
     @DisplayName("Verify all gender combinations")
     void testAllGenderCombinations() {
         // Given
-        StringBuilder result = new StringBuilder();
+        Gender[] genders = Gender.values();
 
-        // When - Test all enum values
-        for (Gender gender : Gender.values()) {
-            Student student = new Student("Test User", "test@example.com", gender);
-            student.setId(1L);
-            result.append(String.format("Gender: %s -> %s%n", gender, student.toString()));
-        }
+        // When/Then - CombinationApprovals tests all permutations of inputs
+        CombinationApprovals.verifyAllCombinations(
+                gender -> {
+                    Student student = new Student("Test User", "test@example.com", gender);
+                    student.setId(1L);
+                    return student.toString();
+                },
+                genders);
+    }
 
-        // Then
-        Approvals.verify(result.toString());
+    @Test
+    @DisplayName("Verify multiple combinations (Names and Genders)")
+    void testMultipleCombinations() {
+        // Given
+        String[] names = { "Alice", "Bob", "Charlie" };
+        Gender[] genders = Gender.values();
+
+        // When/Then
+        CombinationApprovals.verifyAllCombinations(
+                (name, gender) -> {
+                    Student student = new Student(name, name.toLowerCase() + "@example.com", gender);
+                    student.setId(1L);
+                    return String.format("%s (%s) -> %s", name, gender, student.toString());
+                },
+                names,
+                genders);
     }
 
     // ─────────────────────────────────────────────────────────────────────────────

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.transaction.Transactional;
+import testing._utils.ConcurrentTest;
 import testing.testcontainers.config.initializers.UseInfraInitializer1;
 import testing.domain.Gender;
 import testing.domain.models.Student;

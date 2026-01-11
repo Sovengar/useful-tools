@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import testing._utils.ConcurrentTest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +29,7 @@ import static org.instancio.Select.field;
  * Instancio automatiza la creación de POJOs complejos con datos aleatorios.
  */
 @ExtendWith(InstancioExtension.class)
+@ConcurrentTest
 class InstancioShowcaseTest {
 
     // Domain models para los ejemplos

@@ -4,6 +4,7 @@ import lombok.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import testing._utils.ConcurrentTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Esta clase muestra las funcionalidades más importantes de Lombok.
  * Lombok reduce el boilerplate (código repetitivo) mediante anotaciones.
  */
+@ConcurrentTest
 class LombokShowcaseTest {
 
     @Nested

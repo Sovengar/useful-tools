@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import testing._utils.ConcurrentTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import static org.mockito.BDDMockito.*;
  * con @Mock.
  */
 @ExtendWith(MockitoExtension.class)
+@ConcurrentTest
 class MockitoShowcaseTest {
 
     @Mock

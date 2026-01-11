@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
+import testing._utils.ConcurrentTest;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static net.javacrumbs.jsonunit.core.Option.*;
@@ -29,6 +30,7 @@ import static net.javacrumbs.jsonunit.core.Option.*;
  */
 @ActiveProfiles("test")
 @DisplayName("JSON-Unit Examples")
+@ConcurrentTest
 class JsonUnitTest {
 
     private final Faker faker = new Faker();
